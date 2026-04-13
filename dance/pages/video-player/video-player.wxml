@@ -1,0 +1,20 @@
+<view class="container">
+  <!-- 视频播放器 -->
+  <video 
+    class="video-player" 
+    src="{{course.videoUrl}}" 
+    controls 
+    autoplay
+    show-center-play-btn
+  ></video>
+
+  <!-- 课程信息 -->
+  <view class="course-info" wx:if="{{course}}">
+    <text class="title">{{course.title}}</text>
+    <view class="meta-row">
+      <text class="duration">{{course.duration}}</text>
+    </view>
+    <view class="divider"></view>
+    <text class="desc">{{course.description}}</text>
+  </view>
+</view>

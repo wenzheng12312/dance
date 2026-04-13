@@ -1,0 +1,26 @@
+<view class="login-container">
+  <view class="header">
+    <text class="title">舞蹈课堂</text>
+    <text class="subtitle">学生登录入口</text>
+  </view>
+
+  <view class="form-area">
+    <view class="input-item">
+      <text class="label">学号</text>
+      <input class="input" placeholder="请输入学号" bindinput="onStudentIdInput" value="{{studentId}}" />
+    </view>
+
+    <view class="input-item">
+      <text class="label">密码</text>
+      <input class="input" placeholder="请输入密码" password bindinput="onPasswordInput" value="{{password}}" />
+    </view>
+
+    <button class="login-btn" bindtap="handleLogin" loading="{{isLoading}}">
+      {{isLoading ? '登录中...' : '登 录'}}
+    </button>
+
+    <view class="tip">
+      <text>测试账号：2024001 / 密码：123456</text>
+    </view>
+  </view>
+</view>

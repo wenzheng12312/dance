@@ -1,0 +1,29 @@
+<view class="container">
+  <view class="header-bar">
+    <text class="greeting">你好，{{userName}}👋</text>
+    <text class="logout" bindtap="handleLogout">退出</text>
+  </view>
+
+  <view class="section-title">精选课程</view>
+
+  <!-- 课程列表 -->
+  <view class="course-list">
+    <block wx:if="{{courseList.length > 0}}">
+      <view class="course-card" wx:for="{{courseList}}" wx:key="id" bindtap="goToVideo" data-id="{{item.id}}">
+        <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+        <view class="info">
+          <text class="title">{{item.title}}</text>
+          <view class="meta">
+            <text class="duration">{{item.duration}}</text>
+          </view>
+          <text class="desc">{{item.description}}</text>
+        </view>
+      </view>
+    </block>
+    
+    <!-- 空状态 -->
+    <view class="empty" wx:else>
+      <text>暂无课程</text>
+    </view>
+  </view>
+</view>
