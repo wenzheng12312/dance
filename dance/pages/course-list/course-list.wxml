@@ -6,24 +6,23 @@
 
   <view class="section-title">精选课程</view>
 
-  <!-- 课程列表 -->
-  <view class="course-list">
-    <block wx:if="{{courseList.length > 0}}">
-      <view class="course-card" wx:for="{{courseList}}" wx:key="id" bindtap="goToVideo" data-id="{{item.id}}">
-        <image class="cover" src="{{item.cover}}" mode="aspectFill" />
-        <view class="info">
-          <text class="title">{{item.title}}</text>
-          <view class="meta">
-            <text class="duration">{{item.duration}}</text>
-          </view>
-          <text class="desc">{{item.description}}</text>
+  <!-- 课程列表：单列网格流式布局 -->
+  <view class="course-grid" wx:if="{{courseList.length > 0}}">
+    <view class="course-card" wx:for="{{courseList}}" wx:key="id" bindtap="goToVideo" data-id="{{item.id}}">
+      <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+      <view class="info">
+        <text class="title">{{item.title}}</text>
+        <text class="desc">{{item.description}}</text>
+        <view class="meta-row">
+          <text class="duration-tag">{{item.duration}}</text>
         </view>
       </view>
-    </block>
-    
-    <!-- 空状态 -->
-    <view class="empty" wx:else>
-      <text>暂无课程</text>
     </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:else>
+    <view class="empty-icon">📚</view>
+    <text class="empty-text">暂无课程，前往管理页添加</text>
   </view>
 </view>

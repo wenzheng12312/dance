@@ -1,16 +1,17 @@
 {
   "compileType": "miniprogram",
-  "libVersion": "trial",
+  "cloudfunctionRoot": "cloudfunctions/",
+  "libVersion": "3.15.1",
   "packOptions": {
     "ignore": [],
     "include": []
   },
   "setting": {
     "coverView": true,
-    "es6": true,
+    "es6": false,
     "postcss": true,
     "minified": true,
-    "enhance": true,
+    "enhance": false,
     "showShadowRootInWxmlPanel": true,
     "packNpmRelationList": [],
     "babelSetting": {
