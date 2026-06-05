@@ -1,0 +1,56 @@
+<view class="studio-page">
+  <view class="studio-hero">
+    <text class="eyebrow">师生共创</text>
+    <text class="title">创意编创台</text>
+    <text class="summary">把微律动单元组合成可展示的舞蹈片段。</text>
+  </view>
+
+  <view class="demo-notice">
+    <text>演示版暂无数据库：保存作品会暂存在本机微信缓存。已保存 {{savedCount}} 个作品。</text>
+  </view>
+
+  <view class="section-head">
+    <text class="section-title">微律动单元</text>
+    <text class="count">{{units.length}} 个素材</text>
+  </view>
+
+  <view class="unit-grid">
+    <view
+      class="unit-card {{item.color}}"
+      wx:for="{{units}}"
+      wx:key="id"
+      bindtap="addUnit"
+      data-id="{{item.id}}"
+    >
+      <text class="unit-name">{{item.name}}</text>
+      <text class="unit-meta">{{item.tempo}} · {{item.mood}}</text>
+    </view>
+  </view>
+
+  <view class="sequence-panel">
+    <view class="section-head compact">
+      <text class="section-title">作品序列</text>
+      <text class="count">{{selectedUnits.length}} 段</text>
+    </view>
+
+    <view class="empty" wx:if="{{selectedUnits.length === 0}}">
+      <text>尚未选择动作单元</text>
+    </view>
+
+    <scroll-view class="sequence-scroll" scroll-x wx:else>
+      <view class="sequence-item" wx:for="{{selectedUnits}}" wx:key="key">
+        <text class="sequence-index">{{index + 1}}</text>
+        <text class="sequence-name">{{item.name}}</text>
+      </view>
+    </scroll-view>
+
+    <view class="piece-name" wx:if="{{pieceName}}">
+      <text>{{pieceName}}</text>
+    </view>
+
+    <view class="actions">
+      <button class="ghost-btn" bindtap="clearPiece">清空</button>
+      <button class="save-btn" bindtap="savePiece">保存作品</button>
+    </view>
+  </view>
+</view>

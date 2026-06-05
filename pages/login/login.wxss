@@ -1,0 +1,382 @@
+.login-container {
+  min-height: 100vh;
+  background: #eef5e9;
+  position: relative;
+  overflow: hidden;
+}
+
+.stage-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 570rpx;
+  background: linear-gradient(150deg, #223f2e 0%, #4f8a59 55%, #d9e8c5 100%);
+  overflow: hidden;
+}
+
+.sun-disc {
+  position: absolute;
+  right: 62rpx;
+  top: 86rpx;
+  width: 168rpx;
+  height: 168rpx;
+  border-radius: 50%;
+  background: rgba(244,195,106,0.86);
+  box-shadow: 0 0 80rpx rgba(244,195,106,0.42);
+}
+
+.mountain {
+  position: absolute;
+  left: -80rpx;
+  right: -80rpx;
+  bottom: -2rpx;
+  height: 176rpx;
+  border-radius: 55% 55% 0 0;
+}
+
+.mountain-back {
+  background: rgba(255,255,255,0.18);
+  bottom: 36rpx;
+}
+
+.mountain-front {
+  background: rgba(238,245,233,0.42);
+}
+
+.ribbon {
+  position: absolute;
+  width: 560rpx;
+  height: 70rpx;
+  border-radius: 999rpx;
+  transform: rotate(-22deg);
+}
+
+.ribbon-one {
+  left: -180rpx;
+  top: 260rpx;
+  background: rgba(255,255,255,0.18);
+}
+
+.ribbon-two {
+  right: -230rpx;
+  top: 330rpx;
+  background: rgba(216,117,91,0.34);
+}
+
+.login-shell {
+  position: relative;
+  z-index: 1;
+  padding: 70rpx 34rpx 42rpx;
+  box-sizing: border-box;
+}
+
+.brand-block {
+  color: #fff;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+}
+
+.brand-mark {
+  width: 86rpx;
+  height: 86rpx;
+  line-height: 86rpx;
+  display: block;
+  text-align: center;
+  border-radius: 24rpx;
+  background: rgba(255,255,255,0.18);
+  border: 1rpx solid rgba(255,255,255,0.36);
+  font-size: 42rpx;
+  font-weight: 900;
+  box-shadow: inset 0 0 22rpx rgba(255,255,255,0.12);
+}
+
+.brand-copy {
+  margin-left: 22rpx;
+}
+
+.brand-title {
+  display: block;
+  font-size: 46rpx;
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.brand-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.78);
+}
+
+.hero-statement {
+  margin-top: 58rpx;
+  width: 620rpx;
+}
+
+.hero-kicker {
+  display: block;
+  font-size: 22rpx;
+  color: #f4d69e;
+  font-weight: 800;
+}
+
+.hero-title {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 44rpx;
+  line-height: 1.2;
+  font-weight: 900;
+}
+
+.role-card {
+  margin-top: 48rpx;
+  padding: 30rpx;
+  border-radius: 24rpx;
+  background: rgba(255,255,255,0.96);
+  box-shadow: 0 24rpx 58rpx rgba(39,70,46,0.18);
+  border: 1rpx solid rgba(255,255,255,0.76);
+}
+
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 26rpx;
+}
+
+.card-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: 900;
+  color: #243529;
+}
+
+.card-subtitle {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 23rpx;
+  color: #7a8675;
+}
+
+.status-pill {
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  background: #fff1dc;
+  color: #9b6425;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.role-tabs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 28rpx;
+}
+
+.role-tab {
+  width: 318rpx;
+  min-height: 138rpx;
+  padding: 20rpx;
+  border-radius: 18rpx;
+  background: #f3f6ef;
+  box-sizing: border-box;
+  border: 2rpx solid transparent;
+  display: flex;
+  align-items: center;
+}
+
+.role-tab.active {
+  background: #ecf6e6;
+  border-color: #5f9a69;
+  box-shadow: 0 12rpx 24rpx rgba(95,154,105,0.16);
+}
+
+.role-tab.teacher-active {
+  background: #fff5ea;
+  border-color: #d8755b;
+  box-shadow: 0 12rpx 24rpx rgba(216,117,91,0.14);
+}
+
+.role-icon {
+  width: 62rpx;
+  height: 62rpx;
+  line-height: 62rpx;
+  text-align: center;
+  border-radius: 18rpx;
+  background: #31543b;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 900;
+}
+
+.teacher-active .role-icon {
+  background: #d8755b;
+}
+
+.role-copy {
+  margin-left: 16rpx;
+  min-width: 0;
+}
+
+.role-name {
+  display: block;
+  font-size: 29rpx;
+  font-weight: 900;
+  color: #243529;
+}
+
+.role-desc {
+  display: block;
+  margin-top: 8rpx;
+  font-size: 21rpx;
+  color: #72806d;
+  line-height: 1.35;
+}
+
+.form-panel {
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: #fbfcfa;
+  border: 1rpx solid #edf1e9;
+}
+
+.input-item {
+  margin-bottom: 24rpx;
+}
+
+.label {
+  font-size: 25rpx;
+  color: #2d3d31;
+  margin-bottom: 12rpx;
+  display: block;
+  font-weight: 900;
+}
+
+.input-wrap {
+  height: 92rpx;
+  border: 2rpx solid #e1e8dc;
+  border-radius: 16rpx;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 22rpx;
+  box-sizing: border-box;
+}
+
+.input-symbol {
+  width: 48rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  border-radius: 14rpx;
+  text-align: center;
+  background: #eef5e9;
+  color: #31543b;
+  font-size: 22rpx;
+  font-weight: 900;
+  margin-right: 16rpx;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 88rpx;
+  font-size: 29rpx;
+  color: #243529;
+}
+
+.login-btn {
+  height: 94rpx;
+  line-height: 94rpx;
+  background: linear-gradient(135deg, #31543b 0%, #5f9a69 100%);
+  color: #fff;
+  border-radius: 999rpx;
+  margin-top: 34rpx;
+  font-size: 31rpx;
+  font-weight: 900;
+  box-shadow: 0 16rpx 30rpx rgba(49,84,59,0.24);
+}
+
+.login-btn::after {
+  border: none;
+}
+
+.demo-box {
+  margin-top: 26rpx;
+  padding: 24rpx;
+  border-radius: 18rpx;
+  background: #fff7ea;
+  border: 1rpx solid #f2dfc1;
+}
+
+.demo-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14rpx;
+}
+
+.demo-title {
+  display: block;
+  font-size: 24rpx;
+  color: #8d5c25;
+  font-weight: 900;
+}
+
+.demo-tag {
+  padding: 5rpx 12rpx;
+  border-radius: 999rpx;
+  background: #f4d69e;
+  color: #744916;
+  font-size: 20rpx;
+  font-weight: 800;
+}
+
+.demo-row {
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+}
+
+.demo-role {
+  width: 74rpx;
+  height: 36rpx;
+  line-height: 36rpx;
+  border-radius: 10rpx;
+  text-align: center;
+  background: #e9f3e2;
+  color: #31543b;
+  font-size: 22rpx;
+  font-weight: 900;
+}
+
+.demo-role.teacher {
+  background: #ffe9df;
+  color: #b45d43;
+}
+
+.demo-account {
+  margin-left: 18rpx;
+  width: 170rpx;
+  color: #4c3b28;
+  font-size: 25rpx;
+  font-weight: 800;
+}
+
+.demo-password {
+  color: #7b654a;
+  font-size: 25rpx;
+}
+
+.mode-note {
+  margin-top: 24rpx;
+  padding: 22rpx 24rpx;
+  border-radius: 16rpx;
+  background: rgba(255,255,255,0.7);
+  color: #697566;
+  font-size: 23rpx;
+  line-height: 1.48;
+}

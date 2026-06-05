@@ -1,0 +1,129 @@
+.community-page {
+  min-height: 100vh;
+  padding: 28rpx;
+  background: #eef2e8;
+  box-sizing: border-box;
+}
+
+.community-hero {
+  padding: 34rpx;
+  border-radius: 16rpx;
+  background: linear-gradient(135deg, #263f2e 0%, #5f9a69 64%, #d7a940 100%);
+  color: #fff;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 24rpx;
+  color: rgba(255,255,255,0.78);
+}
+
+.title {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 46rpx;
+  font-weight: 800;
+}
+
+.summary {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 26rpx;
+  line-height: 1.5;
+  color: rgba(255,255,255,0.82);
+}
+
+.demo-notice {
+  margin-top: 20rpx;
+  padding: 18rpx 22rpx;
+  border-radius: 12rpx;
+  background: #fff7ea;
+  color: #7b643e;
+  font-size: 23rpx;
+  line-height: 1.45;
+}
+
+.tab-scroll {
+  margin-top: 28rpx;
+  white-space: nowrap;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 70rpx;
+  padding: 0 28rpx;
+  margin-right: 14rpx;
+  border-radius: 999rpx;
+  background: #fff;
+  color: #60705d;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.tab.active {
+  background: #31543b;
+  color: #fff;
+}
+
+.post-list {
+  margin-top: 26rpx;
+}
+
+.post-card {
+  margin-bottom: 20rpx;
+  padding: 28rpx;
+  border-radius: 16rpx;
+  background: #fff;
+  box-shadow: 0 10rpx 28rpx rgba(49,84,59,0.07);
+}
+
+.post-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.author {
+  font-size: 24rpx;
+  color: #5f9a69;
+  font-weight: 800;
+}
+
+.comments {
+  font-size: 22rpx;
+  color: #9aa193;
+}
+
+.post-title {
+  display: block;
+  margin-top: 18rpx;
+  font-size: 31rpx;
+  font-weight: 800;
+  color: #26372b;
+  line-height: 1.35;
+}
+
+.post-summary {
+  display: block;
+  margin-top: 14rpx;
+  font-size: 25rpx;
+  line-height: 1.55;
+  color: #667063;
+}
+
+.publish-btn {
+  margin-top: 28rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  border-radius: 999rpx;
+  background: #d8755b;
+  color: #fff;
+  font-size: 29rpx;
+  font-weight: 800;
+}
+
+.publish-btn.disabled {
+  background: #9aa193;
+}

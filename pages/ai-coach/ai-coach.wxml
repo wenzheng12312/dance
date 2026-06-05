@@ -1,0 +1,57 @@
+<view class="coach-page">
+  <view class="coach-hero">
+    <text class="eyebrow">轻量化姿态识别</text>
+    <text class="title">AI动作陪练</text>
+    <text class="summary">选择动作后开始模拟检测，生成评分、纠错和动作对比。</text>
+  </view>
+
+  <view class="section-title">动作选择</view>
+  <scroll-view class="action-scroll" scroll-x>
+    <view
+      class="action-pill {{activeActionId === item.id ? 'active' : ''}}"
+      wx:for="{{actions}}"
+      wx:key="id"
+      bindtap="selectAction"
+      data-id="{{item.id}}"
+    >
+      <text class="action-name">{{item.name}}</text>
+      <text class="action-level">{{item.level}}</text>
+    </view>
+  </scroll-view>
+
+  <view class="reference-panel" wx:if="{{selectedAction}}">
+    <view class="pose-figure">
+      <view class="head"></view>
+      <view class="arm left-arm"></view>
+      <view class="arm right-arm"></view>
+      <view class="body"></view>
+      <view class="leg left-leg"></view>
+      <view class="leg right-leg"></view>
+    </view>
+    <view class="reference-copy">
+      <text class="panel-label">参考动作</text>
+      <text class="panel-title">{{selectedAction.name}}</text>
+      <text class="panel-text">{{selectedAction.reference}}</text>
+      <text class="focus">训练重点：{{selectedAction.focus}}</text>
+    </view>
+  </view>
+
+  <button class="coach-btn" bindtap="startCoach" loading="{{isDetecting}}">
+    {{result ? '重新检测' : (isDetecting ? '检测中...' : '开始陪练')}}
+  </button>
+
+  <view class="result-panel" wx:if="{{result}}">
+    <view class="score-block">
+      <text class="score">{{result.score}}</text>
+      <text class="score-label">实时评分</text>
+    </view>
+    <view class="advice-block">
+      <text class="result-title">纠错建议</text>
+      <text class="advice" wx:for="{{result.advice}}" wx:key="*this">{{item}}</text>
+    </view>
+    <view class="compare">
+      <text class="result-title">动作对比</text>
+      <text class="compare-text">{{result.comparison}}</text>
+    </view>
+  </view>
+</view>

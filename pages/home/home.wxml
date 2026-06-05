@@ -1,0 +1,38 @@
+<view class="home-page">
+  <view class="hero-band">
+    <view class="top-row">
+      <view>
+        <text class="hello">你好，{{userName}}</text>
+        <text class="role">{{roleName}}端 · {{heroSub}}</text>
+      </view>
+      <text class="logout" bindtap="handleLogout">退出</text>
+    </view>
+
+    <view class="hero-title">
+      <text class="hero-kicker">舞蹈课堂 5.2</text>
+      <text class="hero-main">{{heroMain}}</text>
+    </view>
+  </view>
+
+  <view class="feature-grid">
+    <view
+      class="feature-card {{item.tone}}"
+      wx:for="{{features}}"
+      wx:key="id"
+      bindtap="goFeature"
+      data-id="{{item.id}}"
+    >
+      <view class="feature-head">
+        <text class="feature-index">{{item.index}}</text>
+        <text class="feature-icon">{{item.icon}}</text>
+      </view>
+      <text class="feature-title">{{item.title}}</text>
+      <text class="feature-desc">{{item.desc}}</text>
+    </view>
+  </view>
+
+  <view class="slogan">
+    <text wx:if="{{role === 'teacher'}}">让非专业教师会备课，让乡土舞蹈资源可沉淀、可复用。</text>
+    <text wx:else>跟着视频学动作，用AI模拟陪练，再把微律动组合成自己的作品。</text>
+  </view>
+</view>

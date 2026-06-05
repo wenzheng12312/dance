@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/home/home",
+    "pages/course-list/course-list",
+    "pages/resource-detail/resource-detail",
+    "pages/video-player/video-player",
+    "pages/ai-coach/ai-coach",
+    "pages/creative-studio/creative-studio",
+    "pages/community/community"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#3f6f46",
+    "navigationBarTitleText": "舞蹈课堂",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap.json"
+}

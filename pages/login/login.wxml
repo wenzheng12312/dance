@@ -1,0 +1,116 @@
+<view class="login-container">
+  <view class="stage-bg">
+    <view class="sun-disc"></view>
+    <view class="mountain mountain-back"></view>
+    <view class="mountain mountain-front"></view>
+    <view class="ribbon ribbon-one"></view>
+    <view class="ribbon ribbon-two"></view>
+  </view>
+
+  <view class="login-shell">
+    <view class="brand-block">
+      <view class="brand-row">
+        <text class="brand-mark">舞</text>
+        <view class="brand-copy">
+          <text class="brand-title">舞蹈课堂</text>
+          <text class="brand-subtitle">教师数字助教 · 学生创作课堂</text>
+        </view>
+      </view>
+      <view class="hero-statement">
+        <text class="hero-kicker">DANCE CLASSROOM</text>
+        <text class="hero-title">让课堂从播放视频，升级为备课、跟练、共创</text>
+      </view>
+    </view>
+
+    <view class="role-card">
+      <view class="card-head">
+        <view>
+          <text class="card-title">选择身份登录</text>
+          <text class="card-subtitle">不同身份进入不同课堂工作台</text>
+        </view>
+        <text class="status-pill">演示版</text>
+      </view>
+
+      <view class="role-tabs">
+        <view
+          class="role-tab {{loginRole === 'student' ? 'active student-active' : ''}}"
+          bindtap="selectRole"
+          data-role="student"
+        >
+          <view class="role-icon">学</view>
+          <view class="role-copy">
+            <text class="role-name">学生</text>
+            <text class="role-desc">学习 / 陪练 / 编创</text>
+          </view>
+        </view>
+        <view
+          class="role-tab {{loginRole === 'teacher' ? 'active teacher-active' : ''}}"
+          bindtap="selectRole"
+          data-role="teacher"
+        >
+          <view class="role-icon">师</view>
+          <view class="role-copy">
+            <text class="role-name">教师</text>
+            <text class="role-desc">备课 / 教研 / 管理</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-panel">
+        <view class="input-item">
+          <text class="label">{{loginRole === 'teacher' ? '教师工号' : '学生学号'}}</text>
+          <view class="input-wrap">
+            <text class="input-symbol">{{loginRole === 'teacher' ? 'T' : 'S'}}</text>
+            <input
+              class="input"
+              placeholder="{{loginRole === 'teacher' ? '请输入教师工号' : '请输入学生学号'}}"
+              bindinput="onStudentIdInput"
+              value="{{studentId}}"
+              confirm-type="next"
+            />
+          </view>
+        </view>
+
+        <view class="input-item">
+          <text class="label">登录密码</text>
+          <view class="input-wrap">
+            <text class="input-symbol">密</text>
+            <input
+              class="input"
+              placeholder="请输入密码"
+              password
+              bindinput="onPasswordInput"
+              value="{{password}}"
+              confirm-type="done"
+            />
+          </view>
+        </view>
+
+        <button class="login-btn" bindtap="handleLogin" loading="{{isLoading}}">
+          {{isLoading ? '登录中...' : '进入课堂'}}
+        </button>
+      </view>
+
+      <view class="demo-box">
+        <view class="demo-head">
+          <text class="demo-title">演示账号</text>
+          <text class="demo-tag">Mock</text>
+        </view>
+        <view class="demo-row">
+          <text class="demo-role">学生</text>
+          <text class="demo-account">2024001</text>
+          <text class="demo-password">123456</text>
+        </view>
+        <view class="demo-row">
+          <text class="demo-role teacher">教师</text>
+          <text class="demo-account">T1001</text>
+          <text class="demo-password">123456</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="mode-note">
+      <text>当前为演示版，数据来自本地 Mock 和微信本地缓存，暂未连接数据库。</text>
+    </view>
+  </view>
+</view>

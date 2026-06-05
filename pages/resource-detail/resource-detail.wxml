@@ -1,0 +1,27 @@
+<view class="detail-page" wx:if="{{resource}}">
+  <view class="cover {{resource.coverClass}}">
+    <text>{{resource.label}}</text>
+  </view>
+
+  <view class="content">
+    <text class="label">{{resource.label}}</text>
+    <text class="title">{{resource.title}}</text>
+    <text class="desc">{{resource.description}}</text>
+
+    <view class="meta-row">
+      <text class="meta">{{resource.duration}}</text>
+      <text class="meta" wx:for="{{resource.tags}}" wx:key="*this">{{item}}</text>
+    </view>
+
+    <view class="preview-panel">
+      <text class="panel-title">演示预览</text>
+      <text class="panel-line">教学目标：明确动作重点，形成课堂任务。</text>
+      <text class="panel-line">使用方式：可加入备课记录，也可作为学生学习素材。</text>
+      <text class="panel-line">数据说明：当前不连接数据库，记录保存在本机微信缓存。</text>
+    </view>
+
+    <button class="use-btn" bindtap="useResource">
+      {{role === 'teacher' ? '加入备课记录' : '加入学习记录'}}
+    </button>
+  </view>
+</view>

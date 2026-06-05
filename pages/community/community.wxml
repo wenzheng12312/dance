@@ -1,0 +1,39 @@
+<view class="community-page">
+  <view class="community-hero">
+    <text class="eyebrow">常态化教研</text>
+    <text class="title">教师社区</text>
+    <text class="summary">沉淀课堂经验，连接远程指导，复用教研成果。</text>
+  </view>
+
+  <view class="demo-notice">
+    <text wx:if="{{role === 'teacher'}}">演示版暂无数据库：发布内容会暂存在本机微信缓存。</text>
+    <text wx:else>学生账号可浏览教师社区内容，暂不能发布教研动态。</text>
+  </view>
+
+  <scroll-view class="tab-scroll" scroll-x>
+    <view
+      class="tab {{activeType === item.type ? 'active' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="type"
+      bindtap="selectTab"
+      data-type="{{item.type}}"
+    >
+      <text>{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <view class="post-list">
+    <view class="post-card" wx:for="{{posts}}" wx:key="id">
+      <view class="post-top">
+        <text class="author">{{item.author}}</text>
+        <text class="comments">{{item.comments}} 讨论</text>
+      </view>
+      <text class="post-title">{{item.title}}</text>
+      <text class="post-summary">{{item.summary}}</text>
+    </view>
+  </view>
+
+  <button class="publish-btn {{role !== 'teacher' ? 'disabled' : ''}}" bindtap="publishPost">
+    {{role === 'teacher' ? '发布教研动态' : '学生仅可浏览'}}
+  </button>
+</view>

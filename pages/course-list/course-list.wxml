@@ -1,0 +1,74 @@
+<view class="container">
+  <view class="resource-hero">
+    <view class="header-bar">
+      <view>
+        <text class="greeting">你好，{{userName}}</text>
+        <text class="subline">{{roleName}}端 · {{role === 'teacher' ? '备课资源库' : '课程学习资源'}}</text>
+      </view>
+      <text class="home-link" bindtap="goHome">首页</text>
+    </view>
+    <text class="hero-title" wx:if="{{role === 'teacher'}}">标准教案、分解视频、课件模板，一键调取</text>
+    <text class="hero-title" wx:else>观看分解视频，也可以查看老师准备的课堂素材</text>
+  </view>
+
+  <view class="demo-notice">
+    <text>演示版暂无数据库：调用记录会暂存在本机微信缓存中。</text>
+  </view>
+
+  <view class="search-box">
+    <input
+      class="search-input"
+      placeholder="搜索资源名称、标签"
+      value="{{keyword}}"
+      bindinput="onKeywordInput"
+    />
+  </view>
+
+  <scroll-view class="category-scroll" scroll-x>
+    <view
+      class="category {{activeType === item.type ? 'active' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="type"
+      bindtap="selectCategory"
+      data-type="{{item.type}}"
+    >
+      <text>{{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <view class="section-title">精选资源</view>
+
+  <view class="course-list">
+    <block wx:if="{{resourceList.length > 0}}">
+      <view
+        class="course-card"
+        wx:for="{{resourceList}}"
+        wx:key="id"
+        bindtap="openResource"
+        data-id="{{item.id}}"
+        data-type="{{item.type}}"
+      >
+        <view class="cover {{item.coverClass}}">
+          <text>{{item.label}}</text>
+        </view>
+        <view class="info">
+          <view>
+            <text class="title">{{item.title}}</text>
+            <text class="desc">{{item.description}}</text>
+          </view>
+          <view class="meta">
+            <text class="duration">{{item.duration}}</text>
+            <text class="video-tag" wx:if="{{item.type === 'video'}}">可播放</text>
+          </view>
+          <button class="use-btn" catchtap="useResource" data-id="{{item.id}}">
+            {{role === 'teacher' ? '一键调用' : '加入学习'}}
+          </button>
+        </view>
+      </view>
+    </block>
+
+    <view class="empty" wx:else>
+      <text>暂无匹配资源</text>
+    </view>
+  </view>
+</view>
