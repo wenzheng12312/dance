@@ -1,4 +1,5 @@
-const mock = require('../../utils/mock.js');
+const dbApi = require('../../utils/dbApi.js');
+const uploadApi = require('../../utils/uploadApi.js');
 
 Page({
   data: {
@@ -7,33 +8,45 @@ Page({
   },
 
   onLoad: function (options) {
-    // 1. 获取上一页传来的课程ID
-    const id = options.id;
+    var id = options.id;
     if (!id) {
       wx.showToast({ title: '参数错误', icon: 'none' });
       return;
     }
-
     this.setData({ courseId: id });
-    
-    // 2. 加载课程详情
     this.loadCourseDetail();
   },
 
-  /**
-   * 加载课程详情
-   */
-  loadCourseDetail: async function() {
+  loadCourseDetail: async function () {
     wx.showLoading({ title: '加载中...' });
-    
-    const res = await mock.getCourseDetail(this.data.courseId);
-    
-    wx.hideLoading();
-    
-    if (res.success) {
-      this.setData({ course: res.data });
-      // 动态设置导航栏标题
-      wx.setNavigationBarTitle({ title: res.data.title });
+
+    try {
+      var res = await dbApi.getCourseDetail(this.data.courseId);
+      if (!res.success) {
+        wx.hideLoading();
+        wx.showToast({ title: res.message || '加载失败', icon: 'none' });
+        return;
+      }
+
+      var course = res.data;
+      // 将 cloud:// 文件 ID 转为临时 HTTPS 链接（<video> 组件必须转换）
+      var ids = [];
+      if (course.videoUrl && course.videoUrl.startsWith('cloud://')) ids.push(course.videoUrl);
+      if (course.cover && course.cover.startsWith('cloud://')) ids.push(course.cover);
+
+      if (ids.length > 0) {
+        var urlMap = await uploadApi.getTempUrls(ids);
+        if (urlMap[course.videoUrl]) course.videoUrl = urlMap[course.videoUrl];
+        if (urlMap[course.cover]) course.cover = urlMap[course.cover];
+      }
+
+      this.setData({ course: course });
+      wx.setNavigationBarTitle({ title: course.title });
+      wx.hideLoading();
+    } catch (err) {
+      wx.hideLoading();
+      console.error('加载课程详情失败：', err);
+      wx.showToast({ title: '加载失败，请重试', icon: 'none' });
     }
   }
 });

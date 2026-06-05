@@ -5,8 +5,8 @@
 
 // 模拟学生用户数据
 const mockStudents = [
-  { id: 1, studentId: '2024001', password: '123456', name: '李同学', avatar: 'https://example.com/avatar1.jpg' },
-  { id: 2, studentId: '2024002', password: '123456', name: '王同学', avatar: 'https://example.com/avatar2.jpg' }
+  { id: 1, studentId: '2024001', password: '123456', name: '李同学', avatar: 'https://example.com/avatar1.jpg', role: 'student' },
+  { id: 2, studentId: '2024002', password: '123456', name: '王同学', avatar: 'https://example.com/avatar2.jpg', role: 'student' }
 ];
 
 // 模拟舞蹈课程数据

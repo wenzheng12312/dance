@@ -2,13 +2,41 @@
   "pages": [
     "pages/login/login",
     "pages/course-list/course-list",
-    "pages/video-player/video-player"
+    "pages/video-player/video-player",
+    "pages/course-manage/course-manage",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ff6b6b",
     "navigationBarTitleText": "舞蹈课堂",
     "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999999",
+    "selectedColor": "#ff6b6b",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/course-list/course-list",
+        "text": "课程",
+        "iconPath": "images/tab-course.png",
+        "selectedIconPath": "images/tab-course-active.png"
+      },
+      {
+        "pagePath": "pages/course-manage/course-manage",
+        "text": "管理",
+        "iconPath": "images/tab-manage.png",
+        "selectedIconPath": "images/tab-manage-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/tab-my.png",
+        "selectedIconPath": "images/tab-my-active.png"
+      }
+    ]
   },
   "sitemapLocation": "sitemap.json"
 }

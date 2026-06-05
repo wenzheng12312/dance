@@ -1,5 +1,4 @@
-// 引入Mock接口和登录工具
-const mock = require('../../utils/mock.js');
+const dbApi = require('../../utils/dbApi.js');
 const auth = require('../../utils/auth.js');
 const app = getApp();
 
@@ -38,7 +37,7 @@ Page({
     this.setData({ isLoading: true });
 
     // 3. 调用Mock登录接口
-    const res = await mock.login(this.data.studentId, this.data.password);
+    const res = await dbApi.login(this.data.studentId, this.data.password);
     
     // 4. 关闭loading
     this.setData({ isLoading: false });
@@ -54,7 +53,7 @@ Page({
       
       // 延迟跳转，让用户看到成功提示
       setTimeout(() => {
-        wx.reLaunch({ url: '/pages/course-list/course-list' });
+        wx.switchTab({ url: '/pages/course-list/course-list' });
       }, 1000);
     } else {
       wx.showToast({ title: res.message, icon: 'none' });
