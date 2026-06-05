@@ -181,22 +181,110 @@
   display: flex;
 }
 
-.ghost-btn, .save-btn {
+.ghost-btn, .preview-btn, .save-btn {
   flex: 1;
   height: 82rpx;
   line-height: 82rpx;
   border-radius: 999rpx;
-  font-size: 28rpx;
+  font-size: 26rpx;
   font-weight: 800;
 }
 
 .ghost-btn {
   background: #f2e7de;
   color: #6b5144;
-  margin-right: 18rpx;
+  margin-right: 12rpx;
+}
+
+.preview-btn {
+  background: #d8755b;
+  color: #fff;
+  margin-right: 12rpx;
 }
 
 .save-btn {
   background: #31543b;
   color: #fff;
+}
+
+.output-panel {
+  margin-top: 30rpx;
+  padding: 28rpx;
+  border-radius: 16rpx;
+  background: #fff;
+}
+
+.frame-player {
+  position: relative;
+  width: 100%;
+  height: 390rpx;
+  border-radius: 14rpx;
+  background: #111;
+  overflow: hidden;
+}
+
+.output-frame {
+  width: 100%;
+  height: 390rpx;
+  background: #111;
+}
+
+.play-badge {
+  position: absolute;
+  left: 18rpx;
+  top: 18rpx;
+  padding: 8rpx 16rpx;
+  border-radius: 999rpx;
+  background: rgba(49,84,59,0.82);
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 800;
+}
+
+.replay-btn {
+  position: absolute;
+  right: 18rpx;
+  bottom: 18rpx;
+  min-width: 116rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  padding: 0 18rpx;
+  border-radius: 999rpx;
+  background: rgba(255,255,255,0.9);
+  color: #31543b;
+  font-size: 23rpx;
+  font-weight: 800;
+}
+
+.output-meta {
+  margin-top: 20rpx;
+  padding: 20rpx;
+  border-radius: 12rpx;
+  background: #fff7ee;
+}
+
+.output-title {
+  display: block;
+  font-size: 28rpx;
+  color: #4a372e;
+  font-weight: 900;
+}
+
+.output-desc {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 24rpx;
+  line-height: 1.45;
+  color: #8b7462;
+}
+
+.output-error {
+  display: block;
+  margin-top: 14rpx;
+  padding: 14rpx;
+  border-radius: 10rpx;
+  background: #ffe9df;
+  color: #a9482e;
+  font-size: 22rpx;
+  line-height: 1.45;
 }

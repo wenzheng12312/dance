@@ -36,24 +36,6 @@ const teacherFeatures = [
     desc: '经验分享、远程指导、常态化教研',
     route: '/pages/community/community',
     tone: 'feature-yellow'
-  },
-  {
-    id: 'manage',
-    index: '05',
-    icon: '管',
-    title: '课程管理',
-    desc: '新增、编辑、删除舞蹈课程',
-    route: '/pages/course-manage/course-manage',
-    tone: 'feature-green'
-  },
-  {
-    id: 'profile',
-    index: '06',
-    icon: '我',
-    title: '个人中心',
-    desc: '查看信息、更换头像',
-    route: '/pages/profile/profile',
-    tone: 'feature-blue'
   }
 ];
 
@@ -93,15 +75,6 @@ const studentFeatures = [
     desc: '可浏览教研经验，学生账号暂不能发言',
     route: '/pages/community/community',
     tone: 'feature-yellow'
-  },
-  {
-    id: 'profile',
-    index: '05',
-    icon: '我',
-    title: '个人中心',
-    desc: '查看个人信息、更换头像',
-    route: '/pages/profile/profile',
-    tone: 'feature-green'
   }
 ];
 

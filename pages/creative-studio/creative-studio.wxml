@@ -2,11 +2,11 @@
   <view class="studio-hero">
     <text class="eyebrow">师生共创</text>
     <text class="title">创意编创台</text>
-    <text class="summary">把微律动单元组合成可展示的舞蹈片段。</text>
+    <text class="summary">选择动作单元后，按你的顺序生成可播放的动作片段预览。</text>
   </view>
 
   <view class="demo-notice">
-    <text>演示版暂无数据库：保存作品会暂存在本机微信缓存。已保存 {{savedCount}} 个作品。</text>
+    <text>素材已从你提供的 MP4 裁剪成动作帧；当前输出为连续播放的组合片段预览。已保存 {{savedCount}} 个作品。</text>
   </view>
 
   <view class="section-head">
@@ -50,7 +50,27 @@
 
     <view class="actions">
       <button class="ghost-btn" bindtap="clearPiece">清空</button>
+      <button class="preview-btn" bindtap="generateVideo">生成片段</button>
       <button class="save-btn" bindtap="savePiece">保存作品</button>
+    </view>
+  </view>
+
+  <view class="output-panel" wx:if="{{outputReady}}">
+    <view class="section-head compact">
+      <text class="section-title">视频输出</text>
+      <text class="count">{{currentClipIndex + 1}} / {{selectedUnits.length}}</text>
+    </view>
+    <view class="frame-player">
+      <image class="output-frame" src="{{previewFrameUrl}}" mode="aspectFit"></image>
+      <view class="play-badge" wx:if="{{isPlayingSequence}}">
+        <text>播放中</text>
+      </view>
+      <button class="replay-btn" bindtap="replayVideo">重播</button>
+    </view>
+    <view class="output-meta">
+      <text class="output-title">{{pieceName}}</text>
+      <text class="output-desc">当前动作：{{previewUnitName}}。当前帧 {{currentFrameIndex + 1}} / 12，播放结束后会自动进入下一个动作。</text>
+      <text class="output-error" wx:if="{{videoError}}">{{videoError}}</text>
     </view>
   </view>
 </view>

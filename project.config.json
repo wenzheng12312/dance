@@ -13,6 +13,7 @@
     "minified": true,
     "enhance": true,
     "showShadowRootInWxmlPanel": true,
+    "useStaticServer": true,
     "packNpmRelationList": [],
     "babelSetting": {
       "ignore": [],
@@ -25,6 +26,8 @@
     "packNpmManually": false,
     "minifyWXSS": true,
     "minifyWXML": true,
+    "ignoreDevUnusedFiles": false,
+    "ignoreUploadUnusedFiles": false,
     "localPlugins": false,
     "condition": false,
     "swc": false,

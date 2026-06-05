@@ -57,7 +57,7 @@ Page({
     if (!userInfo || userInfo.role !== 'teacher') {
       wx.showToast({ title: '无教师权限', icon: 'none', duration: 2000 });
       setTimeout(function () {
-        wx.switchTab({ url: '/pages/course-list/course-list' });
+        wx.reLaunch({ url: '/pages/home/home' });
       }, 2000);
       return false;
     }

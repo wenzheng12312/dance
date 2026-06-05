@@ -11,12 +11,13 @@
     "autoAudits": false,
     "useApiHook": true,
     "showShadowRootInWxmlPanel": true,
-    "useStaticServer": false,
+    "useStaticServer": true,
     "useLanDebug": false,
     "showES6CompileOption": false,
     "bigPackageSizeSupport": false,
     "checkInvalidKey": true,
-    "ignoreDevUnusedFiles": true
+    "ignoreDevUnusedFiles": false,
+    "ignoreUploadUnusedFiles": false
   },
   "libVersion": "3.16.1",
   "condition": {}
