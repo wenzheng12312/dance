@@ -1,0 +1,91 @@
+<view class="container">
+
+  <!-- ==================== 列表模式 ==================== -->
+  <block wx:if="{{mode === 'list'}}">
+    <view class="list-header">
+      <text class="list-title">课程管理</text>
+      <button class="add-btn" bindtap="openCreateForm">+ 新增课程</button>
+    </view>
+
+    <view class="course-list" wx:if="{{courseList.length > 0}}">
+      <view class="course-card" wx:for="{{courseList}}" wx:key="id">
+        <view class="card-main">
+          <image class="cover" src="{{item.cover}}" mode="aspectFill" />
+          <view class="info">
+            <text class="title">{{item.title}}</text>
+            <view class="meta">
+              <text class="duration">{{item.duration}}</text>
+            </view>
+            <text class="desc">{{item.description}}</text>
+          </view>
+        </view>
+        <view class="card-actions">
+          <text class="action-edit" bindtap="openEditForm" data-id="{{item.id}}">编辑</text>
+          <text class="action-delete" bindtap="handleDelete" data-id="{{item.id}}">删除</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty" wx:else>
+      <text>暂无课程，点击上方按钮添加</text>
+    </view>
+  </block>
+
+  <!-- ==================== 表单模式 ==================== -->
+  <block wx:if="{{mode === 'form'}}">
+    <view class="form-header">
+      <text class="back-btn" bindtap="backToList">← 返回</text>
+      <text class="form-title">{{editingId ? '编辑课程' : '新增课程'}}</text>
+    </view>
+
+    <view class="form-card">
+      <view class="form-item">
+        <text class="label">课程标题</text>
+        <input class="input" placeholder="请输入课程标题" value="{{formTitle}}" bindinput="onTitleInput" />
+      </view>
+
+      <view class="form-item">
+        <text class="label">课程描述</text>
+        <textarea class="textarea" placeholder="请输入课程描述" value="{{formDescription}}" bindinput="onDescInput" auto-height />
+      </view>
+
+      <view class="form-item">
+        <text class="label">课程时长</text>
+        <input class="input" placeholder="如 60min" value="{{formDuration}}" bindinput="onDurationInput" />
+      </view>
+
+      <!-- 封面上传 -->
+      <view class="form-item">
+        <text class="label">课程封面</text>
+        <view class="upload-area">
+          <image wx:if="{{formCoverTempPath || formCoverFileID}}" class="upload-preview" src="{{formCoverTempPath || formCoverFileID}}" mode="aspectFill" />
+          <view wx:else class="upload-placeholder">
+            <text class="upload-icon">+</text>
+          </view>
+          <text class="upload-btn" bindtap="chooseCover">选择封面</text>
+        </view>
+        <view wx:if="{{formCoverFileID}}" class="upload-info">已上传</view>
+      </view>
+
+      <!-- 视频上传 -->
+      <view class="form-item">
+        <text class="label">课程视频</text>
+        <view class="upload-area">
+          <view wx:if="{{formVideoTempPath}}" class="upload-placeholder">
+            <text class="upload-icon">▶</text>
+          </view>
+          <view wx:else class="upload-placeholder">
+            <text class="upload-icon">+</text>
+          </view>
+          <text class="upload-btn" bindtap="chooseVideo">选择视频</text>
+        </view>
+        <view wx:if="{{formVideoFileID}}" class="upload-info">已上传</view>
+      </view>
+
+      <button class="submit-btn" bindtap="handleSave" loading="{{formSubmitting}}" disabled="{{formSubmitting}}">
+        {{formSubmitting ? '保存中...' : '保存课程'}}
+      </button>
+    </view>
+  </block>
+
+</view>

@@ -7,7 +7,9 @@
     "pages/video-player/video-player",
     "pages/ai-coach/ai-coach",
     "pages/creative-studio/creative-studio",
-    "pages/community/community"
+    "pages/community/community",
+    "pages/course-manage/course-manage",
+    "pages/profile/profile"
   ],
   "window": {
     "backgroundTextStyle": "light",

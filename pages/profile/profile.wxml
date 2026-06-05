@@ -1,0 +1,26 @@
+<view class="container">
+  <!-- 头像区域 -->
+  <view class="avatar-section">
+    <image wx:if="{{avatarUrl}}" class="avatar" src="{{avatarUrl}}" mode="aspectFill" />
+    <view wx:else class="avatar-placeholder">
+      <text class="avatar-placeholder-text">{{userName ? userName[0] : '?'}}</text>
+    </view>
+    <text class="upload-btn" bindtap="chooseAvatar">更换头像</text>
+  </view>
+
+  <!-- 个人信息卡片 -->
+  <view class="info-card">
+    <view class="info-row">
+      <text class="info-label">姓名</text>
+      <text class="info-value">{{userName}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">学号</text>
+      <text class="info-value">{{studentId}}</text>
+    </view>
+    <view class="info-row">
+      <text class="info-label">角色</text>
+      <text class="info-value">{{role === 'teacher' ? '教师' : '学生'}}</text>
+    </view>
+  </view>
+</view>

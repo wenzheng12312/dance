@@ -3,6 +3,14 @@ const auth = require('./utils/auth.js');
 
 App({
   onLaunch: function () {
+    // 初始化云开发
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: 'cloud1-d9gqdwuj082ecda5d',
+        traceUser: true
+      });
+    }
+
     // 小程序启动时检查登录状态
     this.checkLoginStatus();
   },

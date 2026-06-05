@@ -1,0 +1,77 @@
+.container {
+  padding: 60rpx;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+/* 头像区域 */
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60rpx 0;
+}
+
+.avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background-color: #eee;
+}
+
+.avatar-placeholder {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  background-color: #ff6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-placeholder-text {
+  font-size: 64rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.upload-btn {
+  margin-top: 30rpx;
+  font-size: 26rpx;
+  color: #ff6b6b;
+  border: 2rpx solid #ff6b6b;
+  padding: 14rpx 40rpx;
+  border-radius: 40rpx;
+  background: transparent;
+}
+
+/* 信息卡片 */
+.info-card {
+  background-color: #fff;
+  border-radius: 20rpx;
+  padding: 40rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.04);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 0;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #999;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
