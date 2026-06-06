@@ -82,29 +82,12 @@
   margin-bottom: 18rpx;
 }
 
-.unit-green {
-  background: #6e9c52;
-}
-
-.unit-blue {
-  background: #4d91a8;
-}
-
-.unit-coral {
-  background: #d8755b;
-}
-
-.unit-yellow {
-  background: #d7a940;
-}
-
-.unit-mint {
-  background: #55a889;
-}
-
-.unit-purple {
-  background: #7c6597;
-}
+.unit-green  { background: #6e9c52; }
+.unit-blue   { background: #4d91a8; }
+.unit-coral  { background: #d8755b; }
+.unit-yellow { background: #d7a940; }
+.unit-mint   { background: #55a889; }
+.unit-purple { background: #7c6597; }
 
 .unit-name {
   display: block;
@@ -207,6 +190,7 @@
   color: #fff;
 }
 
+/* 视频输出区 */
 .output-panel {
   margin-top: 30rpx;
   padding: 28rpx;
@@ -214,31 +198,53 @@
   background: #fff;
 }
 
-.frame-player {
+.video-player {
   position: relative;
   width: 100%;
-  height: 390rpx;
   border-radius: 14rpx;
   background: #111;
   overflow: hidden;
 }
 
-.output-frame {
+.output-video {
   width: 100%;
   height: 390rpx;
-  background: #111;
 }
 
-.play-badge {
-  position: absolute;
-  left: 18rpx;
-  top: 18rpx;
-  padding: 8rpx 16rpx;
-  border-radius: 999rpx;
-  background: rgba(49,84,59,0.82);
-  color: #fff;
-  font-size: 22rpx;
-  font-weight: 800;
+/* 生成中动画 */
+.generating-hint {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 390rpx;
+}
+
+.generating-text {
+  font-size: 26rpx;
+  color: #8b7462;
+}
+
+.generating-dots {
+  display: flex;
+  margin-top: 24rpx;
+}
+
+.dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin: 0 8rpx;
+  border-radius: 50%;
+  background: #d8755b;
+  animation: bounce 0.6s ease-in-out infinite alternate;
+}
+
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  from { opacity: 0.3; transform: scale(0.8); }
+  to   { opacity: 1;   transform: scale(1.2); }
 }
 
 .replay-btn {
@@ -276,15 +282,4 @@
   font-size: 24rpx;
   line-height: 1.45;
   color: #8b7462;
-}
-
-.output-error {
-  display: block;
-  margin-top: 14rpx;
-  padding: 14rpx;
-  border-radius: 10rpx;
-  background: #ffe9df;
-  color: #a9482e;
-  font-size: 22rpx;
-  line-height: 1.45;
 }

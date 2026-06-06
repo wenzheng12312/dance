@@ -107,6 +107,10 @@
   border-top: 8rpx solid #d7a940;
 }
 
+.feature-purple {
+  border-top: 8rpx solid #7c6597;
+}
+
 .feature-muted {
   border-top: 8rpx solid #9aa193;
   opacity: 0.82;

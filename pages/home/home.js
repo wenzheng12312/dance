@@ -36,6 +36,15 @@ const teacherFeatures = [
     desc: '经验分享、远程指导、常态化教研',
     route: '/pages/community/community',
     tone: 'feature-yellow'
+  },
+  {
+    id: 'upload',
+    index: '05',
+    icon: '传',
+    title: '资源上传',
+    desc: '上传课程视频、封面，新建教学资源',
+    route: '/pages/resource-upload/resource-upload',
+    tone: 'feature-purple'
   }
 ];
 

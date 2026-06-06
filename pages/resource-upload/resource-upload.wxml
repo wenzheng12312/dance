@@ -1,0 +1,45 @@
+<view class="page">
+  <view class="header">
+    <text class="title">资源上传</text>
+    <text class="sub">上传课程视频和封面，新建教学资源</text>
+  </view>
+
+  <view class="form">
+    <view class="form-group">
+      <text class="label">课程标题</text>
+      <input class="input" placeholder="输入课程名称" value="{{formTitle}}" bindinput="onTitleInput" />
+    </view>
+
+    <view class="form-group">
+      <text class="label">课程描述</text>
+      <textarea class="textarea" placeholder="输入课程简介" value="{{formDescription}}" bindinput="onDescInput" />
+    </view>
+
+    <view class="form-group">
+      <text class="label">课程时长</text>
+      <input class="input" placeholder="如：45分钟" value="{{formDuration}}" bindinput="onDurationInput" />
+    </view>
+
+    <view class="form-group">
+      <text class="label">课程封面</text>
+      <view class="file-row" wx:if="{{coverTempPath}}">
+        <image class="cover-preview" src="{{coverTempPath}}" mode="aspectFill"></image>
+        <text class="clear-btn" bindtap="clearCover">重新选择</text>
+      </view>
+      <button class="choose-btn" bindtap="chooseCover" wx:else>选择封面图片</button>
+    </view>
+
+    <view class="form-group">
+      <text class="label">课程视频</text>
+      <view class="file-info" wx:if="{{videoTempPath}}">
+        <text class="file-name">{{videoFileName || '已选择视频'}}</text>
+        <text class="clear-btn" bindtap="clearVideo">重新选择</text>
+      </view>
+      <button class="choose-btn" bindtap="chooseVideo" wx:else>选择视频文件</button>
+    </view>
+
+    <button class="submit-btn" bindtap="handleSubmit" loading="{{submitting}}" disabled="{{submitting}}">
+      {{submitting ? '上传中...' : '上传资源'}}
+    </button>
+  </view>
+</view>

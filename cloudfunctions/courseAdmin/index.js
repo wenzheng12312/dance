@@ -42,6 +42,16 @@ exports.main = async function (event) {
       return { success: true, message: '课程删除成功' };
     }
 
+    if (action === 'getTempUrl') {
+      var urlRes = await cloud.getTempFileURL({ fileList: [data.fileID] });
+      var file = (urlRes.fileList && urlRes.fileList[0]) ? urlRes.fileList[0] : null;
+      return {
+        success: true,
+        data: { tempFileURL: file ? file.tempFileURL : '' },
+        message: '获取成功'
+      };
+    }
+
     return { success: false, message: '未知操作：' + action };
   } catch (err) {
     return { success: false, message: '操作失败：' + (err.message || '') };
