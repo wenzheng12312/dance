@@ -20,6 +20,28 @@
       <text class="panel-line">数据说明：当前不连接数据库，记录保存在本机微信缓存。</text>
     </view>
 
+    <view class="doc-panel" wx:if="{{resource.sections && resource.sections.length > 0}}">
+      <view class="doc-head">
+        <text class="panel-title">文档内容</text>
+        <text class="doc-source" wx:if="{{resource.sourceName}}">来源：{{resource.sourceName}}</text>
+      </view>
+      <view
+        class="doc-section"
+        wx:for="{{resource.sections}}"
+        wx:key="title"
+        wx:for-item="section"
+      >
+        <text class="doc-section-title">{{section.title}}</text>
+        <text
+          class="doc-line"
+          wx:for="{{section.lines}}"
+          wx:key="*this"
+          wx:for-item="line"
+        >{{line}}</text>
+      </view>
+      <text class="doc-path" wx:if="{{resource.docFile}}">原始 Word 已放入项目：{{resource.docFile}}</text>
+    </view>
+
     <button class="use-btn" bindtap="useResource">
       {{role === 'teacher' ? '加入备课记录' : '加入学习记录'}}
     </button>

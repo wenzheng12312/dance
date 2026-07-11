@@ -7,6 +7,39 @@ var db = wx.cloud.database();
 
 var roleNameMap = { teacher: '教师', student: '学生' };
 
+/**
+ * 通过云函数把云存储 fileID 转成 video 组件可播放的临时 HTTPS 地址。
+ * 客户端不直接调用 wx.cloud.getTempFileURL，避免仅创建者可读权限下出现 STORAGE_EXCEED_AUTHORITY。
+ */
+function getPlayableVideoUrl(videoUrl) {
+  if (!videoUrl) {
+    return Promise.resolve('');
+  }
+
+  if (/^https?:\/\//.test(videoUrl)) {
+    return Promise.resolve(videoUrl);
+  }
+
+  if (videoUrl.indexOf('cloud://') !== 0) {
+    return Promise.resolve(videoUrl);
+  }
+
+  return wx.cloud.callFunction({
+    name: 'getVideoUrl',
+    data: { videoUrl: videoUrl }
+  }).then(function(res) {
+    var result = res.result || {};
+    if (result.success && result.data && result.data.videoUrl) {
+      return result.data.videoUrl;
+    }
+    console.warn('getVideoUrl 云函数未返回可用地址：', result.message || '');
+    return videoUrl;
+  }).catch(function(err) {
+    console.error('调用 getVideoUrl 云函数失败：', err);
+    return videoUrl;
+  });
+}
+
 module.exports = {
   login: function (studentId, password, role) {
     return new Promise(function (resolve, reject) {
@@ -82,44 +115,13 @@ module.exports = {
         .get()
         .then(function (res) {
           var course = res.data;
-          var ids = [];
-          if (course.videoUrl && course.videoUrl.startsWith('cloud://')) ids.push(course.videoUrl);
-          if (course.coverUrl && course.coverUrl.startsWith('cloud://')) ids.push(course.coverUrl);
-
-          if (ids.length === 0) {
+          getPlayableVideoUrl(course.videoUrl).then(function(videoUrl) {
             resolve({
               success: true,
               data: {
                 id: course._id, title: course.title,
                 cover: course.coverUrl, duration: course.duration,
-                videoUrl: course.videoUrl, description: course.description
-              }
-            });
-            return;
-          }
-
-          // 自动将 cloud:// 转为临时 HTTPS 链接
-          wx.cloud.getTempFileURL({ fileList: ids }).then(function (urlRes) {
-            var map = {};
-            (urlRes.fileList || []).forEach(function (f) { map[f.fileID] = f.tempFileURL; });
-            resolve({
-              success: true,
-              data: {
-                id: course._id, title: course.title,
-                cover: map[course.coverUrl] || course.coverUrl,
-                duration: course.duration,
-                videoUrl: map[course.videoUrl] || course.videoUrl,
-                description: course.description
-              }
-            });
-          }).catch(function () {
-            // 转换失败，返回原始 cloud:// URL（视频可能播不了，但不阻塞页面）
-            resolve({
-              success: true,
-              data: {
-                id: course._id, title: course.title,
-                cover: course.coverUrl, duration: course.duration,
-                videoUrl: course.videoUrl, description: course.description
+                videoUrl: videoUrl, description: course.description
               }
             });
           });

@@ -1,11 +1,11 @@
 <view class="coach-page">
   <view class="coach-hero">
-    <text class="eyebrow">轻量化姿态识别</text>
+    <text class="eyebrow">视频动作诊断</text>
     <text class="title">AI动作陪练</text>
-    <text class="summary">选择动作后开始模拟检测，生成评分、纠错和动作对比。</text>
+    <text class="summary">录制或上传一段练习视频，系统只给动作建议，不做分数评价。</text>
   </view>
 
-  <view class="section-title">动作选择</view>
+  <view class="section-title">选择练习动作</view>
   <scroll-view class="action-scroll" scroll-x>
     <view
       class="action-pill {{activeActionId === item.id ? 'active' : ''}}"
@@ -20,38 +20,48 @@
   </scroll-view>
 
   <view class="reference-panel" wx:if="{{selectedAction}}">
-    <view class="pose-figure">
-      <view class="head"></view>
-      <view class="arm left-arm"></view>
-      <view class="arm right-arm"></view>
-      <view class="body"></view>
-      <view class="leg left-leg"></view>
-      <view class="leg right-leg"></view>
-    </view>
     <view class="reference-copy">
-      <text class="panel-label">参考动作</text>
+      <text class="panel-label">观察重点</text>
       <text class="panel-title">{{selectedAction.name}}</text>
       <text class="panel-text">{{selectedAction.reference}}</text>
-      <text class="focus">训练重点：{{selectedAction.focus}}</text>
+      <text class="focus">重点：{{selectedAction.focus}}</text>
     </view>
   </view>
 
-  <button class="coach-btn" bindtap="startCoach" loading="{{isDetecting}}">
-    {{result ? '重新检测' : (isDetecting ? '检测中...' : '开始陪练')}}
+  <view class="upload-panel">
+    <text class="panel-label">上传练习视频</text>
+    <text class="upload-tip">建议上传 15-60 秒视频，画面包含全身，方便观察脚步、重心和手位。</text>
+    <view class="upload-actions">
+      <button class="upload-btn camera" bindtap="recordVideo">手机录制</button>
+      <button class="upload-btn album" bindtap="uploadVideo">文件上传</button>
+    </view>
+  </view>
+
+  <view class="video-preview" wx:if="{{uploadedVideo}}">
+    <video class="uploaded-video" src="{{uploadedVideo.tempFilePath}}" controls show-center-play-btn></video>
+    <view class="video-meta">
+      <text class="video-name">{{uploadedVideo.name}}</text>
+      <text class="video-desc">{{uploadedVideo.duration ? uploadedVideo.duration + '秒' : '本地视频'}}</text>
+    </view>
+  </view>
+
+  <button class="coach-btn" bindtap="analyzeVideo" loading="{{isAnalyzing}}">
+    {{isAnalyzing ? '生成建议中...' : '生成动作建议'}}
   </button>
 
   <view class="result-panel" wx:if="{{result}}">
-    <view class="score-block">
-      <text class="score">{{result.score}}</text>
-      <text class="score-label">实时评分</text>
-    </view>
+    <text class="result-kicker">建议报告</text>
+    <text class="result-title">{{result.actionName}}</text>
+    <text class="result-meta">{{result.videoName}} · {{result.videoMeta}}</text>
+
     <view class="advice-block">
-      <text class="result-title">纠错建议</text>
+      <text class="block-title">主要建议</text>
       <text class="advice" wx:for="{{result.advice}}" wx:key="*this">{{item}}</text>
     </view>
-    <view class="compare">
-      <text class="result-title">动作对比</text>
-      <text class="compare-text">{{result.comparison}}</text>
+
+    <view class="advice-block">
+      <text class="block-title">下一步练习</text>
+      <text class="advice" wx:for="{{result.nextPractice}}" wx:key="*this">{{item}}</text>
     </view>
   </view>
 </view>

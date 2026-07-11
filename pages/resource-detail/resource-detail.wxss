@@ -33,6 +33,10 @@
   background: #55a889;
 }
 
+.cover-purple {
+  background: #7e6aa6;
+}
+
 .content {
   margin-top: -28rpx;
   padding: 34rpx 30rpx 44rpx;
@@ -103,6 +107,73 @@
   font-size: 26rpx;
   line-height: 1.5;
   color: #7b643e;
+}
+
+.doc-panel {
+  margin-top: 28rpx;
+  padding: 28rpx;
+  border-radius: 16rpx;
+  background: #f6faf2;
+  border: 1rpx solid #e3ecd9;
+}
+
+.doc-head {
+  padding-bottom: 18rpx;
+  border-bottom: 1rpx solid #e3ecd9;
+}
+
+.doc-source {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 23rpx;
+  line-height: 1.45;
+  color: #6b7568;
+  word-break: break-all;
+}
+
+.doc-section {
+  padding-top: 22rpx;
+}
+
+.doc-section-title {
+  display: block;
+  font-size: 28rpx;
+  line-height: 1.35;
+  font-weight: 900;
+  color: #2f4f38;
+}
+
+.doc-line {
+  display: block;
+  position: relative;
+  margin-top: 14rpx;
+  padding-left: 22rpx;
+  font-size: 25rpx;
+  line-height: 1.58;
+  color: #5f6c5e;
+}
+
+.doc-line::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 18rpx;
+  width: 8rpx;
+  height: 8rpx;
+  border-radius: 50%;
+  background: #d7a940;
+}
+
+.doc-path {
+  display: block;
+  margin-top: 26rpx;
+  padding: 16rpx;
+  border-radius: 12rpx;
+  background: #ffffff;
+  color: #7b643e;
+  font-size: 22rpx;
+  line-height: 1.45;
+  word-break: break-all;
 }
 
 .use-btn {

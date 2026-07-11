@@ -8,14 +8,14 @@
 .coach-hero {
   padding: 34rpx;
   border-radius: 16rpx;
-  background: #294b52;
+  background: linear-gradient(135deg, #294b52 0%, #4d91a8 100%);
   color: #fff;
 }
 
 .eyebrow {
   display: block;
   font-size: 24rpx;
-  color: #a8d7cf;
+  color: #b8e2dc;
 }
 
 .title {
@@ -30,7 +30,7 @@
   margin-top: 14rpx;
   font-size: 26rpx;
   line-height: 1.5;
-  color: rgba(255,255,255,0.78);
+  color: rgba(255,255,255,0.82);
 }
 
 .section-title {
@@ -48,8 +48,8 @@
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
-  width: 220rpx;
-  height: 116rpx;
+  width: 244rpx;
+  height: 118rpx;
   margin-right: 18rpx;
   padding: 0 24rpx;
   border-radius: 14rpx;
@@ -75,95 +75,38 @@
   color: #6f8281;
 }
 
-.reference-panel {
+.reference-panel,
+.upload-panel,
+.video-preview,
+.result-panel {
   margin-top: 28rpx;
-  padding: 30rpx;
+  padding: 28rpx;
   border-radius: 16rpx;
   background: #fff;
-  display: flex;
-  align-items: center;
+  box-shadow: 0 10rpx 28rpx rgba(41,75,82,0.06);
 }
 
-.pose-figure {
-  width: 190rpx;
-  height: 250rpx;
-  border-radius: 16rpx;
-  background: #e8f1e8;
-  position: relative;
-  margin-right: 26rpx;
-}
-
-.head, .body, .arm, .leg {
-  position: absolute;
-  background: #5f9a69;
-}
-
-.head {
-  width: 42rpx;
-  height: 42rpx;
-  border-radius: 50%;
-  left: 74rpx;
-  top: 28rpx;
-}
-
-.body {
-  width: 22rpx;
-  height: 86rpx;
-  left: 84rpx;
-  top: 76rpx;
-  border-radius: 999rpx;
-}
-
-.arm, .leg {
-  width: 18rpx;
-  height: 86rpx;
-  border-radius: 999rpx;
-  transform-origin: top center;
-}
-
-.left-arm {
-  left: 76rpx;
-  top: 86rpx;
-  transform: rotate(48deg);
-}
-
-.right-arm {
-  left: 98rpx;
-  top: 86rpx;
-  transform: rotate(-56deg);
-}
-
-.left-leg {
-  left: 82rpx;
-  top: 154rpx;
-  transform: rotate(24deg);
-}
-
-.right-leg {
-  left: 94rpx;
-  top: 154rpx;
-  transform: rotate(-28deg);
-}
-
-.reference-copy {
-  flex: 1;
-}
-
-.panel-label {
+.panel-label,
+.result-kicker {
   display: block;
   font-size: 22rpx;
-  color: #5b8b69;
+  color: #4d91a8;
+  font-weight: 800;
 }
 
-.panel-title {
+.panel-title,
+.result-title {
   display: block;
-  margin-top: 8rpx;
+  margin-top: 10rpx;
   font-size: 34rpx;
   font-weight: 800;
   color: #22352a;
 }
 
-.panel-text, .focus {
+.panel-text,
+.focus,
+.upload-tip,
+.result-meta {
   display: block;
   margin-top: 14rpx;
   font-size: 25rpx;
@@ -174,6 +117,55 @@
 .focus {
   color: #31543b;
   font-weight: 700;
+}
+
+.upload-actions {
+  margin-top: 24rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload-btn {
+  width: 302rpx;
+  height: 84rpx;
+  line-height: 84rpx;
+  border-radius: 999rpx;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.upload-btn.camera {
+  background: #31543b;
+  color: #fff;
+}
+
+.upload-btn.album {
+  background: #fff0eb;
+  color: #d8755b;
+}
+
+.uploaded-video {
+  width: 100%;
+  height: 360rpx;
+  border-radius: 14rpx;
+  background: #111;
+}
+
+.video-meta {
+  margin-top: 18rpx;
+  display: flex;
+  justify-content: space-between;
+}
+
+.video-name {
+  font-size: 26rpx;
+  color: #22352a;
+  font-weight: 800;
+}
+
+.video-desc {
+  font-size: 24rpx;
+  color: #7d8b85;
 }
 
 .coach-btn {
@@ -187,45 +179,23 @@
   font-weight: 800;
 }
 
-.result-panel {
-  margin-top: 28rpx;
-  padding: 28rpx;
-  border-radius: 16rpx;
-  background: #fff;
+.advice-block {
+  margin-top: 26rpx;
 }
 
-.score-block {
-  display: flex;
-  align-items: baseline;
-}
-
-.score {
-  font-size: 74rpx;
-  color: #d8755b;
-  font-weight: 900;
-}
-
-.score-label {
-  margin-left: 18rpx;
-  font-size: 26rpx;
-  color: #58645d;
-}
-
-.advice-block, .compare {
-  margin-top: 24rpx;
-}
-
-.result-title {
+.block-title {
   display: block;
   font-size: 28rpx;
   font-weight: 800;
   color: #22352a;
 }
 
-.advice, .compare-text {
+.advice {
   display: block;
   margin-top: 14rpx;
+  padding-left: 18rpx;
+  border-left: 6rpx solid #dcecc9;
   font-size: 25rpx;
-  line-height: 1.5;
+  line-height: 1.55;
   color: #68766c;
 }

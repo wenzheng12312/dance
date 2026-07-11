@@ -6,7 +6,12 @@
     controls 
     autoplay
     show-center-play-btn
+    binderror="onVideoError"
   ></video>
+
+  <view class="video-error" wx:if="{{videoError}}">
+    <text>{{videoError}}</text>
+  </view>
 
   <!-- 课程信息 -->
   <view class="course-info" wx:if="{{course}}">
@@ -16,5 +21,6 @@
     </view>
     <view class="divider"></view>
     <text class="desc">{{course.description}}</text>
+    <text class="video-url">视频地址：{{course.videoUrl}}</text>
   </view>
 </view>

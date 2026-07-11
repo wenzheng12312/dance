@@ -9,6 +9,8 @@ App({
         env: 'cloud1-d9gqdwuj082ecda5d',
         traceUser: true
       });
+    } else {
+      console.warn('当前基础库不支持 wx.cloud，云存储视频地址将无法自动转换。');
     }
 
     // 小程序启动时检查登录状态

@@ -60,6 +60,12 @@ dance/
 ├── app.js
 ├── app.json
 ├── app.wxss
+├── assets/
+│   ├── docs/
+│   └── videos/
+├── cloudfunctions/
+│   ├── courseAdmin/
+│   └── getVideoUrl/
 ├── pages/
 │   ├── login/
 │   ├── home/
@@ -71,6 +77,7 @@ dance/
 │   └── community/
 └── utils/
     ├── auth.js
+    ├── video.js
     ├── mock.js
     └── util.js
 ```
@@ -101,7 +108,7 @@ dance/
 - 学生端：首页文案偏向学习、跟练、创作
 - 教师社区学生可以浏览，只有教师账号可以发布
 - 资源库：进入资源筛选、资源详情和课程播放
-- AI 动作陪练：进入模拟姿态评分
+- AI 动作陪练：录制或上传练习视频，生成动作建议
 - 创意编创台：进入微律动组合
 - 教师社区：进入教研帖子列表；教师可本地发布，学生仅可浏览
 - 支持退出登录
@@ -118,6 +125,7 @@ dance/
 - 支持一键调用资源，调用记录暂存在微信本地缓存
 - 视频类资源可以进入视频播放页
 - 教案和课件类资源可以进入资源详情页
+- 已加入龙胜小学/龙胜二小苗族舞蹈课程大纲和分年级教案资源
 - 支持下拉刷新
 
 ### 资源详情页
@@ -128,8 +136,28 @@ dance/
 
 - 展示教案、课件等非视频资源详情
 - 展示资源标签、使用说明和演示预览
+- 展示教案资源的结构化章节，包括课堂目标、训练重点、教学口令和评价关注点
 - 支持加入备课记录或学习记录
 - 记录保存在本机微信缓存中
+
+## 已加入的教学资料
+
+原始 Word 文件已复制到：
+
+```text
+assets/docs/
+```
+
+当前已加入资源库的资料：
+
+- `longsheng-miao-dance-syllabus-2.0.docx`：龙胜小学苗族舞蹈技术技巧课程大纲 2.0
+- `grade-1-2-lesson-2-hand-shake-knee.docx`：一、二年级第二节课，小摆手与颤膝配合
+- `grade-3-4-lesson-1-miao-dance.docx`：三、四年级第一节课，颤膝与松弛发力
+- `grade-3-4-lesson-2-flexion-arm-swing.docx`：三、四年级第二节课，屈伸律动与上肢摆动
+- `grade-5-6-lesson-1-miao-dance.docx`：五、六年级第一节课，复合动律与微短句
+- `grade-5-6-lesson-2-steps-turn.docx`：五、六年级第二节课，复合步伐与转身技巧
+
+小程序页面不会直接打开这些 Word 文件，而是把核心内容整理进 `utils/mock.js` 的本地资源数据，在资源详情页中直接展示。正式版建议把 Word/PDF 上传到云存储，再由数据库保存文件地址、年级、课次、标签和权限信息。
 
 ### 视频播放页
 
@@ -139,6 +167,8 @@ dance/
 
 - 根据资源 id 加载课程详情
 - 使用微信原生 `<video>` 组件播放视频
+- 本地 Mock 课程统一使用远程测试视频：`https://media.w3.org/2010/05/sintel/trailer.mp4`
+- 如果数据库返回 `cloud://` 云存储 fileID，页面会通过 `utils/video.js` 转换成临时 HTTPS 地址再播放
 - 展示课程标题、时长和简介
 - 已处理 id 字符串和数字类型不一致导致查不到课程的问题
 
@@ -150,11 +180,12 @@ dance/
 
 - 展示动作列表
 - 选择参考动作
-- 模拟开始检测
-- 返回模拟实时评分
-- 展示纠错建议和动作对比结果
+- 支持手机录制视频
+- 支持从相册/文件选择视频
+- 上传后生成动作建议
+- 不再显示分数，只展示观察重点、主要建议和下一步练习
 
-说明：当前不调用摄像头，不做真实姿态识别。
+说明：当前不会做真实姿态识别，上传视频只用于前端预览和生成模拟建议；正式版需要把视频上传到后端或云存储，再由 AI 服务分析。
 
 ### 创意编创台
 
@@ -198,11 +229,20 @@ utils/mock.js
 - `getResourceDetail(resourceId)`
 - `getCoachActions()`
 - `getCoachResult(actionId)`
+- `getCoachSuggestions(actionId, videoInfo)`
 - `getCreativeUnits()`
 - `getCommunityPosts(type)`
 - `useResource(resource)`
 - `saveCreativePiece(piece)`
 - `publishCommunityPost(post)`
+
+视频播放相关工具：
+
+- `utils/video.js`
+- `convertVideoUrl(videoUrl)`：`cloud://` 转临时 HTTPS；`http/https` 直接返回
+- `cloudfunctions/getVideoUrl`：服务端管理员权限转换云存储视频 fileID，解决仅创建者可读时客户端 `STORAGE_EXCEED_AUTHORITY` 问题
+
+新增或修改云函数后，需要在微信开发者工具中右键云函数目录并上传部署。
 
 ## 登录状态
 
@@ -228,7 +268,7 @@ dance_local_posts
 - 登录账号写在 `utils/mock.js`
 - 资源、动作、编创素材、社区基础帖子写在 `utils/mock.js`
 - 用户产生的数据暂存在本机微信缓存
-- AI 陪练结果是模拟评分，不会调用摄像头
+- AI 陪练可以录制或选择视频，但结果仍是模拟建议，不会进行真实姿态识别
 
 如果要变成正式可用版本，需要接入后端数据库、文件存储、用户权限系统和 AI 姿态识别服务。
 
@@ -243,7 +283,7 @@ dance_local_posts
 - 资源列表接口
 - 资源详情和调用记录接口
 - 课程详情接口
-- AI 陪练动作和检测结果接口
+- AI 陪练视频上传、动作建议和真实姿态识别接口
 - 编创单元和作品保存接口
 - 社区帖子列表和发布接口
 
