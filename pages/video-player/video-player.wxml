@@ -7,7 +7,7 @@
     autoplay
     show-center-play-btn
     binderror="onVideoError"
-  ></video>
+   style="position: relative; left: 0rpx; top: -37rpx"></video>
 
   <view class="video-error" wx:if="{{videoError}}">
     <text>{{videoError}}</text>

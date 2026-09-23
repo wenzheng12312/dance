@@ -65,6 +65,19 @@ module.exports = {
   },
 
   /**
+   * 上传 AI 动作陪练视频
+   * @param {string} filePath 本地临时视频路径
+   * @returns {Promise<string>} resolve 返回 cloud:// fileID
+   */
+  uploadDanceVideo: function (filePath) {
+    const pathWithoutQuery = String(filePath || '').split('?')[0];
+    const matched = pathWithoutQuery.match(/\.([a-zA-Z0-9]+)$/);
+    const ext = matched ? matched[1].toLowerCase() : 'mp4';
+    const cloudPath = 'ai-coach/video/' + generateFileName(ext);
+    return uploadFile(filePath, cloudPath);
+  },
+
+  /**
    * 删除云存储文件（尽力清理，不抛异常）
    * @param {string} fileID 云存储 fileID
    * @returns {Promise} resolve 表示清理完成（无论成功失败）

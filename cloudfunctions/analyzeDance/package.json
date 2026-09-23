@@ -1,5 +1,8 @@
 {
   "name": "analyzeDance",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "private": true,
+  "description": "使用 Qwen3-VL-Flash 分析舞蹈练习视频",
+  "dependencies": {}
 }

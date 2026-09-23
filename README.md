@@ -2,7 +2,7 @@
 
 这是一个原生微信小程序演示项目，定位为师生共用的舞蹈课堂“数字助教”。登录使用同一个入口，系统会根据账号自动识别教师或学生角色。
 
-当前业务数据主要来自本地 Mock，不接真实后端、不接真实 AI 姿态识别。资源调用记录、编创作品和本地发布的社区内容会暂存在微信本地缓存中，用于演示“可保存”的交互效果。
+当前课程、资源、编创和社区基础数据主要来自本地 Mock，尚未接业务数据库。资源调用记录、编创作品和本地发布的社区内容会暂存在微信本地缓存中。AI 动作陪练已经接入微信云存储、云函数和 Qwen3-VL-Flash，用于生成视频动作文字建议，但不属于人体关键点级别的实时姿态识别。
 
 ## 项目类型
 
@@ -182,10 +182,10 @@ assets/docs/
 - 选择参考动作
 - 支持手机录制视频
 - 支持从相册/文件选择视频
-- 上传后生成动作建议
+- 视频上传到微信云存储后，点击按钮生成动作建议
 - 不再显示分数，只展示观察重点、主要建议和下一步练习
 
-说明：当前不会做真实姿态识别，上传视频只用于前端预览和生成模拟建议；正式版需要把视频上传到后端或云存储，再由 AI 服务分析。
+说明：AI 页面会把 `cloud://` fileID 经 `getVideoUrl` 转换为临时 HTTPS 地址，再通过 `wx.request` 调用阿里云 FC 的 `/api/dance/analyze`，由 FC 调 Qwen3-VL-Flash 返回文字建议。建议视频为 15～30 秒。当前不做分数评价，也不做人体骨骼点追踪、关节角度测量或实时纠错。
 
 ### 创意编创台
 
@@ -222,14 +222,14 @@ utils/mock.js
 
 当前 Mock 方法：
 
-- `login(account, password)`
+- `login(account, password, role)`
 - `getCourseList()`
 - `getCourseDetail(courseId)`
 - `getResourceList(type, keyword)`
 - `getResourceDetail(resourceId)`
 - `getCoachActions()`
 - `getCoachResult(actionId)`
-- `getCoachSuggestions(actionId, videoInfo)`
+- `getCoachSuggestions(actionId, videoInfo)`（旧版模拟建议兼容方法，当前 AI 页面不再调用）
 - `getCreativeUnits()`
 - `getCommunityPosts(type)`
 - `useResource(resource)`
@@ -241,6 +241,10 @@ utils/mock.js
 - `utils/video.js`
 - `convertVideoUrl(videoUrl)`：`cloud://` 转临时 HTTPS；`http/https` 直接返回
 - `cloudfunctions/getVideoUrl`：服务端管理员权限转换云存储视频 fileID，解决仅创建者可读时客户端 `STORAGE_EXCEED_AUTHORITY` 问题
+- `cloudfunctions/analyzeDance`：原 CloudBase 分析实现，暂时保留，AI 页面不再调用
+- `serverless/fc-analyze-dance`：新的阿里云 FC 分析服务，调用 `qwen3-vl-flash`
+- `config/api.js`：配置公开的 FC HTTPS Endpoint，不放 API Key
+- `utils/danceAnalyzeApi.js`：100 秒超时的 `wx.request` 封装
 
 新增或修改云函数后，需要在微信开发者工具中右键云函数目录并上传部署。
 
@@ -263,14 +267,42 @@ dance_local_posts
 
 ## 为什么有些功能看起来不像真实系统
 
-当前项目没有数据库，也没有后端接口，所以不能做到多设备同步、真实文件上传、真实社区发布、真实 AI 姿态识别。现在的处理方式是：
+当前项目没有业务数据库和完整业务后端，所以课程、作品和社区内容不能做到多设备同步。微信云存储和云函数已经用于视频上传与 AI 视频分析。现在的处理方式是：
 
 - 登录账号写在 `utils/mock.js`
 - 资源、动作、编创素材、社区基础帖子写在 `utils/mock.js`
 - 用户产生的数据暂存在本机微信缓存
-- AI 陪练可以录制或选择视频，但结果仍是模拟建议，不会进行真实姿态识别
+- AI 陪练会把练习视频上传到微信云存储，通过 `getVideoUrl` 获取临时 HTTPS 地址，再调用百炼 Qwen3-VL-Flash 生成文字动作建议
 
-如果要变成正式可用版本，需要接入后端数据库、文件存储、用户权限系统和 AI 姿态识别服务。
+AI 陪练当前属于多模态视频理解和文字建议，不是人体关键点级别的姿态识别或运动学评分。如果后续需要角度测量、骨骼点追踪或实时纠错，还需要单独接入姿态识别能力。
+
+## AI 动作陪练部署
+
+部署步骤和完整验收见 [FC 部署文档](serverless/fc-analyze-dance/README.md)。
+
+1. 在阿里云 FC 3.0 创建 Node.js 20 函数，上传 `serverless/fc-analyze-dance/` 中的 `index.js`、`package.json`，入口设为 `index.handler`，执行超时设为 120 秒。
+2. 在 **FC 函数环境变量** 中配置 `DASHSCOPE_API_KEY`，不写入前端或 Git。
+3. 创建同步 POST HTTP 触发器，获得 HTTPS Endpoint。
+4. 在 `config/api.js` 的 `DANCE_ANALYZE_API_URL` 填完整 URL（包含 `/api/dance/analyze`），把该 HTTPS 域名加入微信小程序 `request` 合法域名。
+5. 微信云存储、数据库、`getVideoUrl` 和旧 `analyzeDance` 均保留。本轮只迁移分析计算，不变更课程上传和播放。
+
+FC 模型请求总超时为 90 秒，微信请求为 100 秒。未配置 Endpoint 时明确报错，不回退旧云函数。JSON 解析失败时显示模型原文，不把空列表误显示为“没有问题”。本地可运行 `node --test tests/dance-analysis.test.js` 检查模拟链路，真实云端调用需部署后另行验收。
+
+完整调用流程：
+
+```text
+选择动作
+→ 手机录制或文件上传
+→ 上传微信云存储
+→ 获得 cloud:// fileID
+→ 点击“生成动作建议”
+→ getVideoUrl 转换 HTTPS
+→ wx.request POST /api/dance/analyze
+→ 阿里云 FC
+→ Qwen3-VL-Flash
+→ 返回 JSON
+→ 页面展示动作建议
+```
 
 ## 后续接真实后端
 
@@ -283,7 +315,7 @@ dance_local_posts
 - 资源列表接口
 - 资源详情和调用记录接口
 - 课程详情接口
-- AI 陪练视频上传、动作建议和真实姿态识别接口
+- AI 分析任务记录、历史建议和任务状态接口
 - 编创单元和作品保存接口
 - 社区帖子列表和发布接口
 

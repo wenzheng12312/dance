@@ -144,6 +144,25 @@
   color: #d8755b;
 }
 
+.upload-btn[disabled],
+.coach-btn[disabled] {
+  opacity: 0.62;
+}
+
+.upload-status {
+  margin-top: 20rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  background: #eef5f4;
+  color: #4d7378;
+  font-size: 24rpx;
+}
+
+.upload-status.success {
+  background: #eef7e8;
+  color: #3f7449;
+}
+
 .uploaded-video {
   width: 100%;
   height: 360rpx;
@@ -179,6 +198,24 @@
   font-weight: 800;
 }
 
+.error-panel {
+  margin-top: 24rpx;
+  padding: 20rpx 24rpx;
+  border-radius: 14rpx;
+  background: #fff0eb;
+  color: #b34f38;
+  font-size: 24rpx;
+  line-height: 1.5;
+}
+
+.summary-text {
+  display: block;
+  margin-top: 16rpx;
+  font-size: 27rpx;
+  line-height: 1.65;
+  color: #52645b;
+}
+
 .advice-block {
   margin-top: 26rpx;
 }
@@ -198,4 +235,90 @@
   font-size: 25rpx;
   line-height: 1.55;
   color: #68766c;
+}
+
+.problem-card {
+  margin-top: 18rpx;
+  padding: 24rpx;
+  border-radius: 14rpx;
+  background: #f7faf7;
+  border-left: 6rpx solid #d8755b;
+}
+
+.problem-time,
+.problem-label,
+.problem-text,
+.good-point,
+.empty-problems,
+.empty-section {
+  display: block;
+}
+
+.problem-time {
+  font-size: 23rpx;
+  color: #d8755b;
+  font-weight: 800;
+}
+
+.problem-label {
+  margin-top: 16rpx;
+  font-size: 23rpx;
+  color: #31543b;
+  font-weight: 800;
+}
+
+.suggestion-label {
+  color: #4d91a8;
+}
+
+.problem-text {
+  margin-top: 8rpx;
+  font-size: 25rpx;
+  line-height: 1.55;
+  color: #5f6f66;
+}
+
+.good-point {
+  margin-top: 14rpx;
+  padding: 16rpx 20rpx;
+  border-radius: 12rpx;
+  background: #eef7e8;
+  color: #3f7449;
+  font-size: 25rpx;
+  line-height: 1.5;
+}
+
+.practice-item {
+  margin-top: 14rpx;
+  display: flex;
+  align-items: flex-start;
+}
+
+.practice-index {
+  width: 42rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  border-radius: 50%;
+  text-align: center;
+  background: #4d91a8;
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.practice-text {
+  margin-left: 16rpx;
+  padding-top: 3rpx;
+  font-size: 25rpx;
+  line-height: 1.55;
+  color: #5f6f66;
+}
+
+.empty-problems,
+.empty-section {
+  margin-top: 16rpx;
+  color: #7d8b85;
+  font-size: 25rpx;
+  line-height: 1.5;
 }

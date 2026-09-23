@@ -33,15 +33,44 @@ function convertVideoUrl(videoUrl) {
         name: 'getVideoUrl',
         data: { videoUrl: videoUrl }
       }).then(function(res) {
-        var result = res.result || {};
+        console.log(
+          'getVideoUrl 云函数完整返回：',
+          JSON.stringify(res, null, 2)
+        );
+      
+        var result = res && res.result ? res.result : {};
+      
         if (result.success && result.data && result.data.videoUrl) {
+          console.log('getVideoUrl 转换成功');
           resolve(result.data.videoUrl);
-        } else {
-          reject(new Error(result.message || '云存储视频地址转换失败'));
+          return;
         }
+      
+        console.error(
+          'getVideoUrl 云函数未返回可用地址：',
+          JSON.stringify(result, null, 2)
+        );
+      
+        reject(
+          new Error(
+            result.message ||
+            'getVideoUrl 未返回有效的 HTTPS 视频地址'
+          )
+        );
+      
       }).catch(function(err) {
-        console.error('转换云存储视频地址失败：', err);
-        reject(err);
+        console.error(
+          '调用 getVideoUrl 云函数失败：',
+          err
+        );
+      
+        reject(
+          new Error(
+            err.errMsg ||
+            err.message ||
+            '云存储视频地址转换失败'
+          )
+        );
       });
       return;
     }

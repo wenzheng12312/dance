@@ -3,7 +3,10 @@
   "cloudfunctionRoot": "cloudfunctions/",
   "libVersion": "3.16.1",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "serverless" },
+      { "type": "folder", "value": "tests" }
+    ],
     "include": []
   },
   "setting": {

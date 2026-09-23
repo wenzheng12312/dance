@@ -1,0 +1,9 @@
+{
+  "name": "fc-analyze-dance",
+  "version": "1.0.0",
+  "private": true,
+  "description": "FC HTTP handler for Qwen3-VL-Flash dance feedback",
+  "main": "index.js",
+  "type": "commonjs",
+  "engines": { "node": "20.x" }
+}
