@@ -1,7 +1,19 @@
 const mock = require('../../utils/mock.js');
 
-// 答辩演示用固定视频 — 无论选择什么动作组合，生成的都是此视频
-const DEMO_CLOUD_FILE_ID = 'cloud://cloud1-d9gqdwuj082ecda5d.636c-cloud1-d9gqdwuj082ecda5d-1368111602/course/video/result_1.mp4';
+// 答辩演示用固定视频 — 无论选择什么动作组合，从 result_1 ~ result_5 中随机播放其一
+const DEMO_VIDEO_BASE = 'cloud://cloud1-d9gqdwuj082ecda5d.636c-cloud1-d9gqdwuj082ecda5d-1368111602/course/video/';
+const DEMO_VIDEO_COUNT = 5;
+
+// 随机取一个演示视频序号，避开 excludeIndex（上次用过的那个），避免连续两次播放同一个
+function pickDemoVideoIndex(excludeIndex) {
+  const candidates = [];
+  for (let i = 1; i <= DEMO_VIDEO_COUNT; i++) {
+    if (i !== excludeIndex) {
+      candidates.push(i);
+    }
+  }
+  return candidates[Math.floor(Math.random() * candidates.length)];
+}
 
 Page({
   data: {
@@ -64,23 +76,47 @@ Page({
       return;
     }
 
-    this.setData({ generating: true, outputReady: true, demoVideoUrl: '' });
+    // 候选顺序：先随机挑一个（避开上次用过的），拿不到链接再依次试其余几个
+    const firstChoice = pickDemoVideoIndex(this.lastDemoIndex);
+    const candidates = [firstChoice];
+    for (let i = 1; i <= DEMO_VIDEO_COUNT; i++) {
+      if (i !== firstChoice) {
+        candidates.push(i);
+      }
+    }
 
-    var that = this;
+    this.setData({ generating: true, outputReady: true, demoVideoUrl: '' });
+    this.tryDemoVideos(candidates);
+  },
+
+  // 依次尝试候选视频，取第一个能拿到临时链接的；全部失败才提示错误
+  tryDemoVideos: function(candidates) {
+    const that = this;
+
+    if (candidates.length === 0) {
+      wx.showToast({ title: '视频加载失败，请重试', icon: 'none' });
+      this.setData({ generating: false, outputReady: false });
+      return;
+    }
+
+    const index = candidates[0];
+    const fileID = `${DEMO_VIDEO_BASE}result_${index}.mp4`;
+
     wx.cloud.callFunction({
       name: 'courseAdmin',
-      data: { action: 'getTempUrl', data: { fileID: DEMO_CLOUD_FILE_ID } }
+      data: { action: 'getTempUrl', data: { fileID: fileID } }
     }).then(function(res) {
-      var result = res.result;
-      console.log('云函数返回：', JSON.stringify(result));
-      var tempUrl = (result && result.data) ? result.data.tempFileURL : '';
+      const result = res.result;
+      const tempUrl = (result && result.data) ? result.data.tempFileURL : '';
 
       if (!tempUrl) {
-        wx.showToast({ title: '视频链接获取失败', icon: 'none' });
-        that.setData({ generating: false, outputReady: false });
+        // 这个视频拿不到链接（可能没上传），换下一个候选重试
+        console.warn('演示视频不可用，尝试下一个：result_' + index + '.mp4');
+        that.tryDemoVideos(candidates.slice(1));
         return;
       }
 
+      that.lastDemoIndex = index;
       setTimeout(function() {
         that.setData({
           generating: false,
@@ -89,8 +125,7 @@ Page({
       }, 2500);
     }).catch(function(err) {
       console.error('云函数调用失败：', err);
-      wx.showToast({ title: '视频加载失败，请重试', icon: 'none' });
-      that.setData({ generating: false, outputReady: false });
+      that.tryDemoVideos(candidates.slice(1));
     });
   },
 
